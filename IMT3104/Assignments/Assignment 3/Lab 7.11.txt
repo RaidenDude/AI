@@ -1,0 +1,65 @@
+		S	H
+P(X) =  0.2	0.8
+
+			W	S	C	F
+P(Y|X) =  S	0.1	0.3	0.5	0.1
+	  	  H	0.4	0.4	0.2	0
+
+P(X=H|Y=W) = (P(Y=W|X=H) * P(X=H)) / Sum of (P(Y*W|X) * P(X)) for X £ (H, S) 
+= (P(Y=W|X=H) * P(X=H)) / P(Y=W|X=H) * P(X=H) + P(Y=W|X=S) * P(X=S)
+
+Inference: State/probability of a particular node
+
+With numbers:
+= (0.4 * 0.8) / 0.4 * 0.8 + 0.1 * 0.2 = 0.66 = 66% chance of watching game of thrones given a happy state
+
+
+HMM / Dynamic model:
+
+Initial Distribution:
+			S	H
+P(X_0) = 	0.2	0.8
+
+State transition model:
+				W	S	C	F
+P(Y_t|X_t)= S	0.1	0.3	0.5	0.1
+	    	H	0.4	0.4	0.2	0
+
+Observation model:
+					S	H
+P(X_t|X_t-1) =	S	0.9	0.1
+				H	0	1
+
+Prediction:
+P(X_t|Y_t-1)
+
+Update:
+P(X_t|Y_1t-1)
+
+Marginalization:
+P(X_t|Y_1t-1) = Sum of (P(Y_t * X_t-1|Y_1t-1)) for X_t-1 £ (H, S)
+= Sum of (P(Y_t|X_t-1) * P(X_t-1|Y_1t-1) for X_t-1 £ (H, S)
+	    ^State transition   ^Prior known state
+
+Y_1t-1 == Y[1:t-1] (Alle indekser fra 1 - t-1)
+
+P(X_t|Y_1t) = (P(Y_t | X_t , Y_1t-1) * P(X_t|Y_1t-1)) / Sum of (P(Y_t|X_t, Y_1t-1) * P(X_t|Y_1t-1)) for X £ (...)
+
+Bayes multivariabel:
+P(A|BC) = P(ABC) / P(BC)
+= (P(B|AC) * P(A|C) * P(C)) / P(B|C) * P(C)
+
+Bruker markovian blanket for å avgjøre hvilke variabler som er avhengige av hverandre.
+   
+  Observation     Prediction
+= (P(Y_t|X_t) * P(X_t|Y_1t-1)) / Sum of (P(Y_t|X_t) * P(X_t|Y_1t-1) for every Y_t
+
+
+Markovian dependency/blanket stuff:
+For å karakterisere en node, må en ha alle parents, children, og childrens parents til noden.
+
+C er for eksempel avhengig av A, B, og E.
+
+Ikke bruk hele CIFAR-10 settet, kun f. eks 500 til training og 100 til testing.
+
+
